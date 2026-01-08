@@ -13,7 +13,21 @@ from app.services.ai_voice import AIVoiceGenerator
 from app.services.openai_service import OpenAIService
 
 router = APIRouter()
-openai_service = OpenAIService()
+
+# Lazy initialization to avoid crashes if OPENAI_API_KEY is not set
+_openai_service = None
+
+def get_openai_service():
+    global _openai_service
+    if _openai_service is None:
+        try:
+            _openai_service = OpenAIService()
+        except (ValueError, Exception) as e:
+            # If OpenAI service can't be initialized, return None
+            # Routes will handle this gracefully
+            print(f"Warning: OpenAI service not available: {e}")
+            return None
+    return _openai_service
 
 # Audio storage directory
 AUDIO_DIR = Path("audio")
@@ -100,6 +114,14 @@ async def generate_enhanced_voice(
     Enhanced voice generation with beat-aware metadata and persona support
     """
     try:
+        # Get OpenAI service (lazy initialization)
+        openai_service = get_openai_service()
+        if not openai_service:
+            raise HTTPException(
+                status_code=503,
+                detail="OpenAI service not available. Please set OPENAI_API_KEY environment variable."
+            )
+        
         # Get persona if specified (skip if None or empty string)
         persona = None
         persona_settings = None
@@ -114,7 +136,8 @@ async def generate_enhanced_voice(
                 if persona:
                     persona_settings = persona.voice_settings or {}
                 else:
-                    raise HTTPException(status_code=404, detail=f"Persona '{request.persona_id}' not found. Available personas: {', '.join([p['id'] for p in openai_service.list_personas()])}")
+                    available_personas = openai_service.list_personas() if openai_service else []
+                    raise HTTPException(status_code=404, detail=f"Persona '{request.persona_id}' not found. Available personas: {', '.join([p['id'] for p in available_personas])}")
         
         # Generate voice using OpenAI service
         # Default voice to "alloy" if not provided, but override with persona settings if available
