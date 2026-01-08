@@ -6,7 +6,7 @@ pydantic==2.9.2
 pydantic-settings==2.5.2
 
 # Database
-sqlalchemy==2.0.29
+sqlalchemy>=2.0.36  # Updated for Python 3.13 compatibility
 psycopg2-binary==2.9.9
 alembic==1.13.1
 
