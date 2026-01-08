@@ -115,14 +115,14 @@ export default function DashboardPage() {
 
           <AITrackSuggestions
             currentTrackId={currentSet?.set_tracks?.[0]?.track?.id || null}
-            eventType={currentSet?.event_type?.name}
+            eventType={undefined}
           />
 
           <DJAIControls
             currentBpm={currentSet?.set_tracks?.[0]?.track?.bpm}
             currentKey={currentSet?.set_tracks?.[0]?.track?.key || undefined}
             currentEnergy={currentSet?.set_tracks?.[0]?.track?.energy}
-            eventType={currentSet?.event_type?.name}
+            eventType={undefined}
             personaId={selectedPersona}
           />
         </div>
