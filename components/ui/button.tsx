@@ -39,10 +39,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild, children, ...props }, ref) => {
     // If asChild is true, render children directly (for composition with Link, etc.)
     if (asChild && React.isValidElement(children)) {
-      return React.cloneElement(children, {
-        className: cn(buttonVariants({ variant, size }), children.props.className),
-        ref: children.ref || ref,
-        ...children.props,
+      const childElement = children as React.ReactElement
+      const childRef = (childElement as any).ref || ref
+      return React.cloneElement(childElement, {
+        className: cn(buttonVariants({ variant, size }), childElement.props.className),
+        ref: childRef,
+        ...childElement.props,
       })
     }
     
@@ -60,6 +62,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button"
 
 export { Button, buttonVariants }
+
 
 
 

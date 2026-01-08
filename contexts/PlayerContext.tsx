@@ -232,7 +232,7 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   }
 
   const togglePlay = () => {
-    setIsPlaying((prev) => !prev)
+    setIsPlaying(!isPlaying)
   }
 
   return (
