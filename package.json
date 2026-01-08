@@ -43,10 +43,11 @@
   },
   "devDependencies": {
     "@types/wavesurfer.js": "^6.0.0",
-    "eslint": "^8.57.0",
+    "eslint": "^9.0.0",
     "eslint-config-next": "^16.1.1"
   }
 }
+
 
 
 
