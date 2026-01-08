@@ -111,6 +111,7 @@ export function SpotifyLogin() {
         accessToken: response.access_token,
         refreshToken: response.refresh_token,
         expiresAt,
+        userProfile: null,
       }
       
       setAuthState(newAuthState)
