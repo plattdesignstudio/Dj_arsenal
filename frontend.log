@@ -1,0 +1,114 @@
+
+> dj-arsenal@1.0.0 dev
+> next dev
+
+  ▲ Next.js 14.2.5
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ⚠ Invalid next.config.js options detected: 
+ ⚠     Expected object, received boolean at "experimental.serverActions"
+ ⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+ ⚠ Server Actions are available by default now, `experimental.serverActions` option can be safely removed.
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+ ✓ Ready in 1693ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1478ms (601 modules)
+ GET / 307 in 1597ms
+ ⨯ ./app/dashboard/page.tsx
+Error: 
+  [31mx[0m the name `useState` is defined multiple times
+    ,-[[36;1;4m/Users/PlattDESiGN/Desktop/DJ_BOOTH/app/dashboard/page.tsx[0m:1:1]
+ [2m 1[0m | "use client"
+ [2m 2[0m | 
+ [2m 3[0m | import { useEffect, useState } from "react"
+    : [31;1m                    ^^^^|^^^[0m
+    :                         [31;1m`-- [31;1mprevious definition of `useState` here[0m[0m
+ [2m 4[0m | import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+ [2m 5[0m | import { BPMFlowGraph } from "@/components/dashboard/BPMFlowGraph"
+ [2m 6[0m | import { KeyProgression } from "@/components/dashboard/KeyProgression"
+ [2m 7[0m | import { EnergyMeter } from "@/components/dashboard/EnergyMeter"
+ [2m 8[0m | import { CrowdVibeSelector } from "@/components/dashboard/CrowdVibeSelector"
+ [2m 9[0m | import { CurrentSetOverview } from "@/components/dashboard/CurrentSetOverview"
+ [2m10[0m | import { AITrackSuggestions } from "@/components/dashboard/AITrackSuggestions"
+ [2m11[0m | import { DJAIControls } from "@/components/dashboard/DJAIControls"
+ [2m12[0m | import { PersonaSelector } from "@/components/dashboard/PersonaSelector"
+ [2m13[0m | import { setsApi, flowApi } from "@/lib/api"
+ [2m14[0m | import type { SetWithTracks } from "@/lib/api"
+ [2m15[0m | import { useState } from "react"
+    : [33;1m         ^^^^|^^^[0m
+    :              [33;1m`-- [33;1m`useState` redefined here[0m[0m
+ [2m16[0m | 
+ [2m17[0m | export default function DashboardPage() {
+ [2m18[0m |   const [currentSet, setCurrentSet] = useState<SetWithTracks | null>(null)
+    `----
+
+Import trace for requested module:
+./app/dashboard/page.tsx
+ ⨯ ./app/dashboard/page.tsx
+Error: 
+  [31mx[0m the name `useState` is defined multiple times
+    ,-[[36;1;4m/Users/PlattDESiGN/Desktop/DJ_BOOTH/app/dashboard/page.tsx[0m:1:1]
+ [2m 1[0m | "use client"
+ [2m 2[0m | 
+ [2m 3[0m | import { useEffect, useState } from "react"
+    : [31;1m                    ^^^^|^^^[0m
+    :                         [31;1m`-- [31;1mprevious definition of `useState` here[0m[0m
+ [2m 4[0m | import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+ [2m 5[0m | import { BPMFlowGraph } from "@/components/dashboard/BPMFlowGraph"
+ [2m 6[0m | import { KeyProgression } from "@/components/dashboard/KeyProgression"
+ [2m 7[0m | import { EnergyMeter } from "@/components/dashboard/EnergyMeter"
+ [2m 8[0m | import { CrowdVibeSelector } from "@/components/dashboard/CrowdVibeSelector"
+ [2m 9[0m | import { CurrentSetOverview } from "@/components/dashboard/CurrentSetOverview"
+ [2m10[0m | import { AITrackSuggestions } from "@/components/dashboard/AITrackSuggestions"
+ [2m11[0m | import { DJAIControls } from "@/components/dashboard/DJAIControls"
+ [2m12[0m | import { PersonaSelector } from "@/components/dashboard/PersonaSelector"
+ [2m13[0m | import { setsApi, flowApi } from "@/lib/api"
+ [2m14[0m | import type { SetWithTracks } from "@/lib/api"
+ [2m15[0m | import { useState } from "react"
+    : [33;1m         ^^^^|^^^[0m
+    :              [33;1m`-- [33;1m`useState` redefined here[0m[0m
+ [2m16[0m | 
+ [2m17[0m | export default function DashboardPage() {
+ [2m18[0m |   const [currentSet, setCurrentSet] = useState<SetWithTracks | null>(null)
+    `----
+
+Import trace for requested module:
+./app/dashboard/page.tsx
+ ○ Compiling /_error ...
+ ⨯ ./app/dashboard/page.tsx
+Error: 
+  [31mx[0m the name `useState` is defined multiple times
+    ,-[[36;1;4m/Users/PlattDESiGN/Desktop/DJ_BOOTH/app/dashboard/page.tsx[0m:1:1]
+ [2m 1[0m | "use client"
+ [2m 2[0m | 
+ [2m 3[0m | import { useEffect, useState } from "react"
+    : [31;1m                    ^^^^|^^^[0m
+    :                         [31;1m`-- [31;1mprevious definition of `useState` here[0m[0m
+ [2m 4[0m | import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+ [2m 5[0m | import { BPMFlowGraph } from "@/components/dashboard/BPMFlowGraph"
+ [2m 6[0m | import { KeyProgression } from "@/components/dashboard/KeyProgression"
+ [2m 7[0m | import { EnergyMeter } from "@/components/dashboard/EnergyMeter"
+ [2m 8[0m | import { CrowdVibeSelector } from "@/components/dashboard/CrowdVibeSelector"
+ [2m 9[0m | import { CurrentSetOverview } from "@/components/dashboard/CurrentSetOverview"
+ [2m10[0m | import { AITrackSuggestions } from "@/components/dashboard/AITrackSuggestions"
+ [2m11[0m | import { DJAIControls } from "@/components/dashboard/DJAIControls"
+ [2m12[0m | import { PersonaSelector } from "@/components/dashboard/PersonaSelector"
+ [2m13[0m | import { setsApi, flowApi } from "@/lib/api"
+ [2m14[0m | import type { SetWithTracks } from "@/lib/api"
+ [2m15[0m | import { useState } from "react"
+    : [33;1m         ^^^^|^^^[0m
+    :              [33;1m`-- [33;1m`useState` redefined here[0m[0m
+ [2m16[0m | 
+ [2m17[0m | export default function DashboardPage() {
+ [2m18[0m |   const [currentSet, setCurrentSet] = useState<SetWithTracks | null>(null)
+    `----
+
+Import trace for requested module:
+./app/dashboard/page.tsx
+ GET /dashboard 500 in 719ms
+[?25h

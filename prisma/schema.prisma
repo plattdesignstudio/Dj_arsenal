@@ -1,0 +1,202 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Track {
+  id            String   @id @default(cuid())
+  title         String
+  artist        String
+  duration      Int      // in seconds
+  bpm           Float?
+  key           String?  // Camelot notation (e.g., "1A", "12B")
+  energy        Float?   // 0.0 - 1.0
+  genre         String?
+  mood          String?
+  filePath      String?
+  coverArt      String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  setTracks     SetTrack[]
+  analyses      TrackAnalysis[]
+  playlistTracks PlaylistTrack[]
+  
+  @@index([bpm])
+  @@index([key])
+  @@index([energy])
+  @@index([genre])
+}
+
+model Set {
+  id            String   @id @default(cuid())
+  name          String
+  description   String?
+  eventTypeId   String?
+  eventType     EventType? @relation(fields: [eventTypeId], references: [id])
+  duration      Int      // total duration in seconds
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  setTracks     SetTrack[]
+  performances  Performance[]
+  
+  @@index([eventTypeId])
+}
+
+model SetTrack {
+  id            String   @id @default(cuid())
+  setId         String
+  set           Set      @relation(fields: [setId], references: [id], onDelete: Cascade)
+  trackId       String
+  track         Track    @relation(fields: [trackId], references: [id])
+  position      Int      // order in set
+  transitionBpm Float?   // BPM at transition point
+  transitionKey String?  // Key at transition point
+  notes         String?
+  createdAt     DateTime @default(now())
+  
+  @@unique([setId, position])
+  @@index([setId])
+  @@index([trackId])
+}
+
+model EventType {
+  id                String   @id @default(cuid())
+  name              String   // "Club Night", "Festival", etc.
+  description       String?
+  minBpm            Float
+  maxBpm            Float
+  energyCurve       Json     // Array of energy points over time
+  genreWeighting    Json     // Map of genre -> weight
+  vocalFrequency    Float    // 0.0 - 1.0
+  dropIntensity     Float    // 0.0 - 1.0
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  // Relations
+  sets              Set[]
+  
+  @@unique([name])
+}
+
+model TrackAnalysis {
+  id            String   @id @default(cuid())
+  trackId       String
+  track         Track    @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  analysisType  String   // "bpm", "key", "energy", "full"
+  result        Json     // Analysis results
+  confidence    Float?   // 0.0 - 1.0
+  createdAt     DateTime @default(now())
+  
+  @@index([trackId])
+  @@index([analysisType])
+}
+
+model AIVoiceAsset {
+  id            String   @id @default(cuid())
+  personaId     String?
+  persona       DJPersona? @relation(fields: [personaId], references: [id])
+  text          String
+  audioUrl      String
+  voiceType     String   // "hype", "drop", "tag", "custom"
+  bpm           Float?
+  key           String?
+  autotune      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  
+  @@index([personaId])
+  @@index([voiceType])
+}
+
+model DJPersona {
+  id            String   @id @default(cuid())
+  name          String
+  description   String?
+  voiceSettings Json     // OpenAI voice settings
+  tone          String   // "energetic", "smooth", "hype", etc.
+  accent        String?
+  gender        String?
+  autotuneLevel Float    @default(0.0) // 0.0 - 1.0
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  voiceAssets   AIVoiceAsset[]
+  
+  @@unique([name])
+}
+
+model Performance {
+  id            String   @id @default(cuid())
+  setId         String
+  set           Set      @relation(fields: [setId], references: [id])
+  startTime     DateTime
+  endTime       DateTime?
+  energyLevels  Json?    // Array of energy readings over time
+  crowdVibe     String?  // "chill", "building", "hype", "peak"
+  notes         String?
+  createdAt     DateTime @default(now())
+  
+  @@index([setId])
+  @@index([startTime])
+}
+
+model FlowSuggestion {
+  id            String   @id @default(cuid())
+  currentTrackId String
+  suggestedTrackId String
+  compatibilityScore Float // 0.0 - 1.0
+  reason        String
+  transitionType String  // "smooth", "energy_boost", "key_change", etc.
+  createdAt     DateTime @default(now())
+  
+  @@index([currentTrackId])
+}
+
+model Playlist {
+  id            String   @id @default(cuid())
+  name          String
+  description   String?
+  coverArt      String?
+  isPublic      Boolean  @default(false)
+  userId        String?  // For multi-user support later
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Relations
+  playlistTracks PlaylistTrack[]
+  
+  @@index([userId])
+}
+
+model PlaylistTrack {
+  id            String   @id @default(cuid())
+  playlistId    String
+  playlist      Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  trackId       String
+  track         Track    @relation(fields: [trackId], references: [id])
+  position      Int      // Order in playlist
+  addedAt       DateTime @default(now())
+  notes         String?  // DJ notes for this track in this playlist
+  
+  // For Spotify tracks, store the URI
+  spotifyUri    String?
+  
+  @@unique([playlistId, position])
+  @@index([playlistId])
+  @@index([trackId])
+}
+
+
+
+

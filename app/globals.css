@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom DJ Arsenal styles */
+.glass-panel {
+  @apply bg-black/40 backdrop-blur-xl border border-white/10 rounded-lg;
+}
+
+.neon-cyan {
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+}
+
+.neon-pink {
+  color: #ff00ff;
+  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+}
+
+.neon-purple {
+  color: #9d4edd;
+  text-shadow: 0 0 10px #9d4edd, 0 0 20px #9d4edd;
+}
+
+.pulse-beat {
+  animation: beat-sync 0.5s ease-in-out infinite;
+}
+
+@keyframes beat-sync {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.breathing {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+  }
+  50% {
+    opacity: 0.8;
+    box-shadow: 0 0 0 8px rgba(6, 182, 212, 0);
+  }
+}
+
+/* Volume slider styles - hide thumb by default, show on hover/drag */
+.volume-slider {
+  height: 4px;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgb(6, 182, 212);
+  border: 2px solid white;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  box-shadow: 0 0 4px rgba(6, 182, 212, 0.5);
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgb(6, 182, 212);
+  border: 2px solid white;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  box-shadow: 0 0 4px rgba(6, 182, 212, 0.5);
+}
+
+/* Show thumb on hover */
+.volume-slider:hover::-webkit-slider-thumb,
+.volume-slider:hover::-moz-range-thumb {
+  opacity: 1;
+}
+
+/* Show thumb when active/dragging */
+.volume-slider:active::-webkit-slider-thumb,
+.volume-slider:active::-moz-range-thumb,
+.volume-slider[data-dragging="true"]::-webkit-slider-thumb,
+.volume-slider[data-dragging="true"]::-moz-range-thumb {
+  opacity: 1;
+}
+
+/* Custom scrollbar for textareas */
+textarea {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(6, 182, 212, 0.4) rgba(0, 0, 0, 0.2);
+}
+
+textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: rgba(6, 182, 212, 0.4);
+  border-radius: 4px;
+  border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+  background: rgba(6, 182, 212, 0.6);
+}
+
+
+
+
+
